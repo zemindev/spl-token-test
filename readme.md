@@ -27,10 +27,13 @@ This guide provides step-by-step instructions for deploying a Solana program wri
 
 ## Build and Test the Smart Contract on Localnet
 
-1. **Update Anchor.toml**:
+1. **Update Anchor.toml to specify network**:
+   - Modify the [provider] section in your Anchor.toml file:
+   ```toml
    [provider]
    cluster = "Localnet"
    wallet = "<your-authority--keypair.json>"
+   ```
 
 2. **Build the Program**:
    ```bash
@@ -46,10 +49,13 @@ This guide provides step-by-step instructions for deploying a Solana program wri
 
 ## Solana Program Deployment on Devnet
 
-1. **Update Anchor.toml**:
+1. **Update Anchor.toml to specify network**:
+   - Modify the [provider] section in your Anchor.toml file:
+   ```toml
    [provider]
-   cluster = "Localnet"
+   cluster = "Devnet"
    wallet = "<your-authority--keypair.json>"
+   ```
 
 2. **Build the Program**:
    ```bash
