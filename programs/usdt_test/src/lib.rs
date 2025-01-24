@@ -4,7 +4,7 @@ use anchor_lang::prelude::*;
 use anchor_spl::token::{self, Token, TokenAccount, Transfer as SplTransfer};
 use solana_program::system_instruction;
 
-declare_id!("8w6xJmQkUL28ky3s4yCS8TvSCQxhZbZfmkQbccqvL3XK");
+declare_id!("G1C8yBLEFGAHYy59zd8ce9aYF7jZDJyegzGptgoLdYyy");
 
 #[program]
 pub mod usdt_test {

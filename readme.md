@@ -6,7 +6,7 @@ This guide provides step-by-step instructions for deploying a Solana program wri
 
 ## Prerequisites
 
-1. **Install Solana CLI and Anchor**
+1. **Install Solana CLI, Anchor and Node**
    Follow the official installation guide: [Solana Installation Documentation](https://solana.com/docs/intro/installation).
 
 2. **Verify Installation**:
@@ -18,17 +18,26 @@ This guide provides step-by-step instructions for deploying a Solana program wri
      ```bash
      anchor --version
      ```
+   - Ensure `node` is installed:
+     ```bash
+     node --version
+     ```
 
 ---
 
 ## Build and Test the Smart Contract on Localnet
 
-1. **Build the Program**:
+1. **Update Anchor.toml**:
+   [provider]
+   cluster = "Localnet"
+   wallet = "<your-authority--keypair.json>"
+
+2. **Build the Program**:
    ```bash
    anchor build
    ```
 
-2. **Run Tests on Localnet**:
+3. **Run Tests on Localnet**:
    ```bash
    anchor test
    ```
@@ -37,52 +46,27 @@ This guide provides step-by-step instructions for deploying a Solana program wri
 
 ## Solana Program Deployment on Devnet
 
-### **Step 1: Install Solana's SBF Toolchain**
+1. **Update Anchor.toml**:
+   [provider]
+   cluster = "Localnet"
+   wallet = "<your-authority--keypair.json>"
 
-Install the Solana toolchain if not already done:
-```bash
-sh -c "$(curl -sSfL https://release.solana.com/v1.16.1/install)"
-```
+2. **Build the Program**:
+   ```bash
+   anchor build
+   ```
 
-Add the Solana CLI to your PATH:
-```bash
-export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"
-```
+3. **Request free SOL amount for deployment the Program**:
+   Configure your Solana CLI to use the Devnet cluster:
+   ```bash
+   solana config set --url https://api.devnet.solana.com
+   solana airdrop 2 <authority_address>
+   ```
 
-### **Step 2: Build the Program**
-
-Use the Solana toolchain to build your program using the `cargo-build-sbf` command:
-```bash
-cargo-build-sbf
-```
-This will generate the compiled `.so` file in the `target/deploy` directory.
-
-### **Step 3: Deploy to Devnet**
-
-#### 3.1 Set the Devnet Cluster
-Configure your Solana CLI to use the Devnet cluster:
-```bash
-solana config set --url https://api.devnet.solana.com
-```
-
-#### 3.2 Fund Your Wallet
-Request free SOL tokens for deployment:
-```bash
-solana airdrop 2
-```
-Verify your wallet balance:
-```bash
-solana balance
-```
-
-#### 3.3 Deploy the Program
-Deploy the program using the following command:
-```bash
-solana program deploy target/deploy/<PROGRAM_NAME>.so
-```
-Replace `<PROGRAM_NAME>` with the name of your program file, e.g., `usdt_test.so`.
-
----
+3. **Deploy to Devnet**:
+   ```bash
+   anchor deploy
+   ```
 
 ## Verify Deployment
 
